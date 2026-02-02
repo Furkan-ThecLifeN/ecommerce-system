@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: auth-service
+
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=ecommerce_auth;encrypt=false
+    username: sa
+    password: Str0ngPassw0rd!
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.SQLServerDialect
+
+server:
+  port: 8081
