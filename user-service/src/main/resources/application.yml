@@ -1,31 +1,32 @@
+server:
+  port: 8083
+
 spring:
   application:
-    name: auth-service
+    name: user-service
 
   datasource:
-    url: jdbc:sqlserver://localhost:1433;databaseName=ecommerce_auth;encrypt=false
+    url: jdbc:sqlserver://localhost:1433;databaseName=ecommerce_user;encrypt=false
     username: sa
     password: Str0ngPassw0rd!
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     show-sql: false
-    open-in-view: false
     properties:
       hibernate:
-        format_sql: false
         dialect: org.hibernate.dialect.SQLServerDialect
 
   kafka:
-    producer:
+    consumer:
       bootstrap-servers: localhost:9092
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-
-server:
-  port: 8081
+      group-id: user-profile-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
 
 eureka:
   client:
