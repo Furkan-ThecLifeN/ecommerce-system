@@ -40,3 +40,21 @@ eureka:
   instance:
     instance-id: ${spring.application.name}:${random.value}
     prefer-ip-address: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      orderServiceCB:
+        slidingWindowSize: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000ms
+        permittedNumberOfCallsInHalfOpenState: 2
+  retry:
+    instances:
+      orderServiceRetry:
+        maxAttempts: 3
+        waitDuration: 2000ms
+  timelimiter:
+    instances:
+      orderServiceCB:
+        timeoutDuration: 3s
